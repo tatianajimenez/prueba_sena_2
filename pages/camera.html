@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MELISSA - Easy Horticulture</title>
+    <script src="../assets/js/shared-config.js"></script>
+  </head>
+  <body>
+    <!-- Vista de la cámara con planta detectada -->
+    <div class="w-full h-[calc(100vh-150px)] relative">
+      <!-- Imagen de fondo de la planta -->
+      <img src="../assets/img/camera/bg_plant.png" alt="Planta detectada" class="w-full h-full object-cover">
+      
+      <!-- Icono de encuadre central -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <img src="../assets/img/camera/crop_free.png" alt="Encuadrar" class="w-20 h-20 opacity-80">
+      </div>
+      
+      <!-- Botones de acción -->
+      <div class="absolute bottom-4 right-5 flex gap-3">
+        <button class="bg-melissa text-white font-medium py-2 px-6 rounded-lg flex items-center gap-2">
+          <span class="text-white">Tomar</span>
+          <img src="../assets/img/camera/camera.png" alt="Tomar foto" class="w-5 h-5">
+        </button>
+        <button class="bg-melissa text-white p-3 rounded-lg">
+          <img src="../assets/img/camera/save.png" alt="Guardar" class="w-5 h-5">
+        </button>
+      </div>
+    </div>
+    
+    <!-- Información de la planta detectada -->
+    <div class="p-4 bg-white">
+      <div class="flex items-center text-melissa-light mb-0">
+        <p class="text-xs">Planta detectada</p>
+      </div>
+      <div class="flex justify-between items-center -mt-1">
+        <h2 class="text-melissa-light text-2xl font-medium">Dracaena marginata</h2>
+        <img src="../assets/img/camera/spa.png" alt="Planta" class="w-8 h-8">
+      </div>
+    </div>
+    
+    <div id="footer-container"></div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', async function() {
+        await initMelissa();
+        await loadComponent('../components/footer.html', 'footer-container');
+      });
+    </script>
+  </body>
+</html>

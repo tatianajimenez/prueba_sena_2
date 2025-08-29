@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MELISSA - Easy Horticulture</title>
+    <script src="assets/js/shared-config.js"></script>
+    <style>
+      @keyframes slideUp {
+        0% { transform: translateY(50px); opacity: 0; }
+        100% { transform: translateY(0px); opacity: 1; }
+      }
+      @keyframes logoUp {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-25px); }
+      }
+      .animate-slide-up {
+        animation: slideUp 0.5s ease-out forwards;
+      }
+      .animate-logo-up {
+        animation: logoUp 0.5s ease-out forwards;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="h-screen w-full flex items-center justify-center bg-melissa">
+      <div class="relative h-full w-full flex items-center justify-center">
+        <div class="absolute inset-0 z-0 bg-cover bg-center opacity-60" style="background-image: url('assets/img/bg.png')"></div>
+        <div class="z-10 flex flex-col items-center justify-center">
+          <div id="logo" class="flex justify-center items-center w-full transition-all duration-500">
+            <img src="assets/img/logo.png" alt="MELISSA Logo" class="w-[25rem]" />
+          </div>
+          <div id="spinner" class="hidden flex justify-center items-center opacity-0">
+            <div class="w-8 h-8 border-4 border-white rounded-full border-t-transparent animate-spin"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', async function() {
+        await initMelissa();
+        
+        setTimeout(() => {
+          const spinner = document.getElementById('spinner');
+          const logo = document.getElementById('logo');
+          
+          spinner.classList.remove('hidden');
+          spinner.classList.add('animate-slide-up');
+          logo.classList.add('animate-logo-up');
+          setTimeout(() => {
+            window.location.href = 'pages/login.html';
+          }, 3000);
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

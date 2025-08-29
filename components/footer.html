@@ -1,0 +1,70 @@
+<div id="footer-component">
+    <div class="fixed bottom-0 max-w-[500px] w-full bg-white py-3 border-t border-gray-200 z-50">
+        <div class="flex justify-around items-center">
+            <a href="/pages/store.html" id="nav-store" class="flex items-center">
+                <img src="../assets/img/footer/store.png" alt="Tienda" class="w-7 h-7" id="icon-store">
+            </a>
+            <a href="/pages/home.html" id="nav-home" class="flex items-center">
+                <img src="../assets/img/footer/leaf.png" alt="Plantas" class="w-7 h-7" id="icon-home">
+            </a>
+            <a href="/pages/camera.html" id="nav-camera" class="flex items-center">
+                <img src="../assets/img/footer/camera.png" alt="Cámara" class="w-7 h-7" id="icon-camera">
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateFooterNavigation() {
+        const currentPath = window.location.pathname;
+        const navItems = [
+            {
+                id: 'store',
+                path: 'store.html',
+                normalIcon: '../assets/img/footer/store.png',
+                selectedIcon: '../assets/img/footer/store-selected.png'
+            },
+            {
+                id: 'home',
+                path: 'home.html',
+                normalIcon: '../assets/img/footer/leaf.png',
+                selectedIcon: '../assets/img/footer/leaf-selected.png'
+            },
+            {
+                id: 'camera',
+                path: 'camera.html',
+                normalIcon: '../assets/img/footer/camera.png',
+                selectedIcon: '../assets/img/footer/camera-selected.png'
+            }
+        ];
+        
+        navItems.forEach(item => {
+            const iconElement = document.getElementById(`icon-${item.id}`);
+            if (!iconElement) return;
+            if (currentPath.includes(item.path)) {
+                iconElement.src = item.selectedIcon;
+            } else {
+                iconElement.src = item.normalIcon;
+            }
+        });
+    }
+    
+    // Centra el footer en la ventana para que coincida con el contenedor móvil
+    function centerFooter() {
+        const footer = document.querySelector('#footer-component > div');
+        if (footer) {
+            const parentContainer = document.getElementById('mobile-container');
+            if (parentContainer) {
+                const containerRect = parentContainer.getBoundingClientRect();
+                footer.style.left = containerRect.left + 'px';
+            }
+        }
+    }
+    
+    setTimeout(() => {
+        updateFooterNavigation();
+        centerFooter();
+        // Recentrar el footer si cambia el tamaño de la ventana
+        window.addEventListener('resize', centerFooter);
+    }, 100);
+</script>

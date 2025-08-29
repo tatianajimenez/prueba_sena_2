@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MELISSA - Easy Horticulture</title>
+  <script src="../assets/js/shared-config.js"></script>
+</head>
+
+<body class="bg-gray-50">
+  <div id="header-container"></div>
+  <div class="container mx-auto px-8 pt-6 pb-24">
+    <h2 class="text-lg font-medium text-melissa mb-4">Mis plantas</h2>
+    <div class="grid grid-cols-2 gap-4" id="plants-container"></div>
+  </div>
+  <div id="footer-container"></div>
+  <template id="plant-card-template">
+    <div class="bg-white rounded-lg overflow-hidden shadow-md">
+      <div class="h-40 overflow-hidden">
+        <img src="" alt="" class="plant-image w-full h-full object-cover">
+      </div>
+      <div class="p-3">
+        <div class="flex justify-between items-center">
+          <div class="max-w-[75%]">
+            <h3 class="plant-name text-melissa uppercase font-semibold text-xs truncate"></h3>
+            <p class="plant-scientific-name text-melissa-light text-xs truncate"></p>
+          </div>
+          <div class="plant-icons relative"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      await initMelissa();
+      await loadComponent('../components/header.html', 'header-container');
+      await loadComponent('../components/footer.html', 'footer-container');
+
+      // Datos de las plantas
+      const plants = [
+        {
+          name: 'SAMANTHA',
+          scientificName: 'Acanthus mollis',
+          image: '../assets/img/home/samantha.png',
+          icons: ['water', 'error']
+        },
+        {
+          name: 'ANGELICA',
+          scientificName: 'Angelica archangelica',
+          image: '../assets/img/home/angelica.png',
+          icons: ['water', 'error']
+        },
+        {
+          name: 'SAMANTHA',
+          scientificName: 'Acanthus mollis',
+          image: '../assets/img/home/samantha2.png',
+          icons: ['water', 'error']
+        },
+        {
+          name: 'Cactus',
+          scientificName: 'Krainzlinia gracisonii',
+          image: '../assets/img/home/cactus.png',
+          icons: ['water', 'error']
+        }
+      ];
+
+      // Función para crear una tarjeta de planta
+      function createPlantCard(plant) {
+        const template = document.getElementById('plant-card-template');
+        const card = document.importNode(template.content, true);
+        const imageElement = card.querySelector('.plant-image');
+        imageElement.src = plant.image;
+        imageElement.alt = plant.name;
+        card.querySelector('.plant-name').textContent = plant.name;
+        card.querySelector('.plant-scientific-name').textContent = plant.scientificName;
+        const iconsContainer = card.querySelector('.plant-icons');
+        iconsContainer.innerHTML = '';
+        if (plant.icons.includes('water')) {
+          const waterImg = document.createElement('img');
+          waterImg.src = '../assets/img/home/water.png';
+          waterImg.alt = 'agua';
+          waterImg.className = 'w-7 h-7';
+          iconsContainer.appendChild(waterImg);
+        }
+        if (plant.icons.includes('error')) {
+          const errorImg = document.createElement('img');
+          errorImg.src = '../assets/img/home/error.png';
+          errorImg.alt = 'error';
+          errorImg.className = 'w-4 h-4 absolute -bottom-1 -right-1 z-10';
+          iconsContainer.appendChild(errorImg);
+        }
+
+        return card;
+      }
+      const container = document.getElementById('plants-container');
+      plants.forEach(plant => {
+        container.appendChild(createPlantCard(plant));
+      });
+    });
+  </script>
+</body>
+
+</html>

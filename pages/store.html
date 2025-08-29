@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MELISSA - Easy Horticulture</title>
+    <script src="../assets/js/shared-config.js"></script>
+  </head>
+  <body class="bg-gray-50">
+    <div id="header-container"></div>
+    
+    <div class="container mx-auto px-8 pt-6 pb-24">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-medium text-melissa">Tienda</h2>
+        <button class="bg-melissa text-white text-xs px-4 py-1 rounded-full">Categorías</button>
+      </div>
+      <div class="grid grid-cols-2 gap-4" id="products-container"></div>
+    </div>
+    
+    <div id="footer-container"></div>
+    
+    <template id="product-card-template">
+      <div class="bg-white rounded-lg overflow-hidden shadow-md">
+        <div class="h-40 overflow-hidden flex items-center justify-center p-2">
+          <img src="" alt="" class="product-image w-full h-full object-contain">
+        </div>
+        <div class="flex justify-between items-center px-3 py-2 border-t border-melissa">
+          <div class="max-w-[70%]">
+            <h3 class="product-name text-melissa font-semibold text-xs truncate"></h3>
+            <p class="product-brand text-melissa-light text-xs truncate"></p>
+          </div>
+          <div class="product-price font-semibold text-xs min-w-[30%] text-right truncate text-melissa"></div>
+        </div>
+      </div>
+    </template>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', async function () {
+        await initMelissa();
+        await loadComponent('../components/header.html', 'header-container');
+        await loadComponent('../components/footer.html', 'footer-container');
+        
+        // Datos de los productos
+        const products = [
+          {
+            name: 'Florescencia',
+            brand: 'Forza Soluble',
+            image: '../assets/img/store/florescencia.png',
+            price: 9400
+          },
+          {
+            name: 'Cascarilla de arroz',
+            brand: 'x 1KG',
+            image: '../assets/img/store/cascarilla.png',
+            price: 7700
+          },
+          {
+            name: 'Clavos mágicos',
+            brand: 'Foliage',
+            image: '../assets/img/store/clavos.png',
+            price: 10900
+          },
+          {
+            name: 'Fertilizante Uno',
+            brand: 'Bioestimul x250',
+            image: '../assets/img/store/fertilizante.png',
+            price: 9400
+          }
+        ];
+        
+        // Función para crear una tarjeta de producto
+        function createProductCard(product) {
+          const template = document.getElementById('product-card-template');
+          const card = document.importNode(template.content, true);
+          
+          const imageElement = card.querySelector('.product-image');
+          imageElement.src = product.image;
+          imageElement.alt = product.name;
+          
+          card.querySelector('.product-name').textContent = product.name;
+          card.querySelector('.product-brand').textContent = product.brand;
+          
+          // Formatear el precio con separadores de miles
+          const formattedPrice = '$' + product.price.toLocaleString('es-CO');
+          card.querySelector('.product-price').textContent = formattedPrice;
+          
+          return card;
+        }
+        
+        const container = document.getElementById('products-container');
+        products.forEach(product => {
+          container.appendChild(createProductCard(product));
+        });
+      });
+    </script>
+  </body>
+</html>
